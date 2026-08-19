@@ -31,8 +31,7 @@ active_thresholds = {
     "advice":     "",
 }
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL   = "llama-3.3-70b-versatile"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 # ── Models ────────────────────────────────────
 class SensorData(BaseModel):
@@ -101,6 +100,7 @@ async def set_thresholds(t: ThresholdOverride):
 # ── Groq AI advice ────────────────────────────
 @app.get("/ai-advice")
 async def ai_advice(plant: str = "tomato"):
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
     if not GROQ_API_KEY:
         raise HTTPException(status_code=500, detail="GROQ_API_KEY not set on server.")
 
