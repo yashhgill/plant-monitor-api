@@ -51,6 +51,9 @@ class ThresholdOverride(BaseModel):
     temp_low:   float
     humid_low:  float
     humid_high: float
+    plant:      str = ""
+    advice:     str = ""
+
 
 # ── Sensor data ───────────────────────────────
 @app.post("/data")
@@ -94,7 +97,15 @@ async def get_thresholds():
 @app.post("/thresholds")
 async def set_thresholds(t: ThresholdOverride):
     global active_thresholds
-    active_thresholds.update(t.dict())
+    update = {
+        "temp_high":  t.temp_high,
+        "temp_low":   t.temp_low,
+        "humid_low":  t.humid_low,
+        "humid_high": t.humid_high,
+    }
+    if t.plant:  update["plant"]  = t.plant
+    if t.advice: update["advice"] = t.advice
+    active_thresholds.update(update)
     return {"ok": True, "thresholds": active_thresholds}
 
 # ── Groq AI advice ────────────────────────────
