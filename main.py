@@ -100,9 +100,7 @@ async def set_thresholds(t: ThresholdOverride):
 # ── Groq AI advice ────────────────────────────
 @app.get("/ai-advice")
 async def ai_advice(plant: str = "tomato"):
-    GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-    if not GROQ_API_KEY:
-        raise HTTPException(status_code=500, detail="GROQ_API_KEY not set on server.")
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY", "") or "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"
 
     temp  = latest.get("temperature", 0)
     humid = latest.get("humidity",    0)
