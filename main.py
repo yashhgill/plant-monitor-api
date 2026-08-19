@@ -31,7 +31,7 @@ active_thresholds = {
     "advice":     "",
 }
 
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "openai/gpt-oss-20b"
 
 # ── Models ────────────────────────────────────
 class SensorData(BaseModel):
